@@ -1,32 +1,26 @@
+import { fetchResults } from "@/lib/fetchResults";
 import { notFound } from "next/navigation";
 
 type Props = {
   searchParams: SearchParams;
 };
 
-type SearchParams = {
+export type SearchParams = {
   url: URL;
-  ss: string;
-  checkin: string;
-  checkout: string;
   group_adults: string;
   group_children: string;
   no_rooms: string;
+  checkin: string;
+  checkout: string;
 };
 
-function SearchPage({ searchParams }: Props) {
-if (!searchParams.url) {
-    return notFound(); 
-}
+async function SearchPage({ searchParams }: Props) {
+  if (!searchParams.url) return notFound();
 
-const results = await fetchResults(searchParams);
+  const results = await fetchResults(searchParams);
 
-if(!results) {
-    return (
-        <div>No Results</div>
-    )
-}
-  return <div>Search Page</div>;
+  // if (!results) return <div>No results...</div>;
+
 }
 
 export default SearchPage;
